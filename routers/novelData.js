@@ -6,7 +6,7 @@ const router = express.Router()
 router.get('/', async(req,res)=>{
     try{
         const result = await pool.query(`SELECT * FROM novelData`)
-        res.json(result.rows)
+        res.json({data: result.rows})
     }
     catch(err){
         console.error(`Error occured ` + err)
@@ -20,7 +20,7 @@ router.get('/:id', async(req,res) =>{
     const query = `SELECT title,content,author FROM noveldata WHERE id = $1`
     try {
         const result = await pool.query(query,values)
-        res.json(result.rows)
+        res.json({data: result.rows})
     } catch (error) {
         console.error(error)
         res.status(500).send("Internal Error")
